@@ -15,17 +15,15 @@ if __name__ == "__main__":
     """
     Число запросов =  0  Запросы =  []
     """
-    entry = Entry.objects.get(id=5)
+    entry = Entry.objects.all()
     print("Число запросов = ", len(connection.queries), " Запросы = ", connection.queries)
     """
-    Число запросов =  1  Запросы =  [...]
+    Число запросов =  0  Запросы =  [], ввиду ленивости QuerySet
     """
-    blog = entry.blog
-    print("Число запросов = ", len(connection.queries), " Запросы = ", connection.queries)
+    for row in entry:
+        tags = [tag.name for tag in row.tags.all()]
+        print("Число запросов = ", len(connection.queries), " Запросы = ", connection.queries)
+        print('Результат запроса = ', tags)
     """
-    Число запросов =  2  Запросы =  [...,...]
-    """
-    print('Результат запроса = ', blog)
-    """
-    Результат запроса =  Путешествия по миру
+    Число запросов =  26 Запросы = [...]
     """
