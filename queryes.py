@@ -11,19 +11,23 @@ if __name__ == "__main__":
 
     from django.db import connection
 
-    print("Число запросов = ", len(connection.queries), " Запросы = ", connection.queries)
+    # Составляем SQL-запрос
+    sql = """
+    SELECT id, headline
+    FROM db_train_alternative_entry
+    WHERE headline LIKE '%%тайны%%' OR body_text LIKE '%%город%%'
     """
-    Число запросов =  0  Запросы =  []
+
+    # Выполняем запрос
+    with connection.cursor() as cursor:
+        cursor.execute(sql)
+        results = cursor.fetchall()
+
+    # Выводим результаты
+    for result in results:
+        print(result)
     """
-    entry = Entry.objects.all()
-    print("Число запросов = ", len(connection.queries), " Запросы = ", connection.queries)
-    """
-    Число запросов =  0  Запросы =  [], ввиду ленивости QuerySet
-    """
-    for row in entry:
-        tags = [tag.name for tag in row.tags.all()]
-        print("Число запросов = ", len(connection.queries), " Запросы = ", connection.queries)
-        print('Результат запроса = ', tags)
-    """
-    Число запросов =  26 Запросы = [...]
+    (1, 'Изучение красот Мачу-Пикчу')
+    (3, 'Знакомство с Парижем')
+    (4, 'Открывая тайны Колизея')
     """
