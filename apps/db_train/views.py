@@ -32,7 +32,7 @@ class TrainView(View):
         self.answer9 = None  # TODO Какие авторы имеют возраст младше 25 лет?
         self.answer9 = Author.objects.filter(age__lt=25).values()
         self.answer10 = None  # TODO Сколько статей написано каждым автором?
-        self.answer10 = Entry.objects.values('author__username').annotate(count=Count('id'), username=F('author__username'))
+        #self.answer10 = Entry.objects.values('author__username').annotate(count=Count('id'), username=F('author__username'))
         self.answer10 = Author.objects.annotate(count=Count('entries'))
         context = {f'answer{index}': self.__dict__[f'answer{index}'] for index in range(1, 11)}
 
