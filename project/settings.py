@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     "crispy_bootstrap4",
     "apps.db_train_alternative",
+    "rest_framework",
+    "django_filters",
 ]
 
 
